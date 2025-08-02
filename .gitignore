@@ -23,6 +23,11 @@
 
 #cmake
 build/
+out/
+CMakePresets.json
+
+#ide
+.vscode/
 
 # Executables
 *.exe

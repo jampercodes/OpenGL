@@ -11,14 +11,15 @@ void fps_titel (GLFWwindow *window, std::chrono::high_resolution_clock::time_poi
 void processInput (GLFWwindow *window);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 
-int main (int argc, char *argv[]) 
+int main (int argc, char *argv[])
 {
-  std::cout << "hello cmake!" << std::endl;
+  std::cout << "hello cmake!!!" << std::endl;
   // init window
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 
   GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
   if (window == NULL)
@@ -29,16 +30,17 @@ int main (int argc, char *argv[])
   }
 
   // call back
-  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);  
+  glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
   glfwMakeContextCurrent(window);
-
+  glfwSwapInterval(0);
+  
   // init GLAD
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return -1;
-  } 
+  }
 
   // varibols
   auto lastTime = std::chrono::high_resolution_clock::now();

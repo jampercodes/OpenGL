@@ -12,13 +12,18 @@ add_executable(OpenGL ${SRC_FILES})
 # Include path
 target_include_directories(OpenGL PRIVATE ${CMAKE_SOURCE_DIR}/lib/include)
 
-#
-target_link_libraries(OpenGL PRIVATE ${CMAKE_SOURCE_DIR}/lib/bin/libglfw3.a)
 
-
-# Extra libs GLFW needs (for Linux)
-if (UNIX)
+# Platform-specific linking
+if (MSVC)
+    # MSVC uses .lib
+    target_link_libraries(OpenGL PRIVATE ${CMAKE_SOURCE_DIR}/lib/bin/libglfw3.lib)
+    target_link_libraries(OpenGL PRIVATE opengl32)
+elseif(MINGW)
+    # MinGW uses .a
+    target_link_libraries(OpenGL PRIVATE ${CMAKE_SOURCE_DIR}/lib/bin/libglfw3.a)
+    target_link_libraries(OpenGL PRIVATE opengl32 gdi32)
+elseif(UNIX)
+    # Linux/Clang/GCC
+    target_link_libraries(OpenGL PRIVATE ${CMAKE_SOURCE_DIR}/lib/bin/libglfw3.a)
     target_link_libraries(OpenGL PRIVATE dl m pthread X11)
 endif()
-
-
