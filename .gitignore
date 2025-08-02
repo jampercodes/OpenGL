@@ -28,6 +28,7 @@ CMakePresets.json
 
 #ide
 .vscode/
+.vs/
 
 # Executables
 *.exe
