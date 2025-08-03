@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
+// shaders source code  
 const char* vertexShaderSource = 
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
@@ -62,6 +62,14 @@ int main (int argc, char *argv[])
   auto lastTime = std::chrono::high_resolution_clock::now();
   int frames = 0;
 
+  // render model info
+  float vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+     0.0f,  0.5f, 0.0f
+  };
+
+
   //shader copile info
   int  success;
   char infoLog[512];
@@ -75,9 +83,7 @@ int main (int argc, char *argv[])
 
 
   //test vertex shader compile
-
   glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-
   if (!success)
   {
       glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
@@ -124,6 +130,20 @@ int main (int argc, char *argv[])
 
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
+
+   // furtex bufer
+  unsigned int VBO, VAO;
+
+  glGenBuffers(1, &VBO);
+  glGenVertexArrays(1, &VAO);  
+
+  glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+  glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+  glEnableVertexAttribArray(0);  
 
 
   // -------------- main loop ---------------- \\                                                                                           //
